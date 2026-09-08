@@ -1,0 +1,167 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Warm Color Palette */
+  --bg-main: #0c0a09;
+  --bg-secondary: #171411;
+  --bg-surface: #201c18;
+  --bg-card: rgba(36, 30, 25, 0.7);
+  --bg-card-hover: rgba(48, 40, 33, 0.85);
+  
+  /* Accent Warm Palette */
+  --accent-amber: #ff9f1c;
+  --accent-terracotta: #ff6b35;
+  --accent-crimson: #e63946;
+  --accent-gold: #f7c59f;
+  
+  /* Gradient Magic */
+  --accent-gradient: linear-gradient(135deg, #ff6b35 0%, #ff9f1c 100%);
+  --accent-gradient-hover: linear-gradient(135deg, #ff8052 0%, #ffb142 100%);
+  --glow-warm: 0 0 25px rgba(255, 107, 53, 0.25);
+  --glow-amber: 0 0 20px rgba(255, 159, 28, 0.3);
+
+  /* Text & Border Colors */
+  --text-primary: #fff8f0;
+  --text-secondary: #c5bbb0;
+  --text-muted: #8c8277;
+  --border-warm: rgba(255, 159, 28, 0.12);
+  --border-warm-hover: rgba(255, 159, 28, 0.3);
+  
+  /* Layout Dimensions */
+  --navbar-height: 64px;
+  --sidebar-width: 240px;
+  --sidebar-collapsed-width: 72px;
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  overflow-x: hidden;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Outfit', sans-serif;
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-main);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--bg-surface);
+  border-radius: 4px;
+  border: 2px solid var(--bg-main);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-terracotta);
+}
+
+/* Glassmorphism Card Utility */
+.glass-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-warm);
+  border-radius: 16px;
+  transition: all var(--transition-normal);
+}
+
+.glass-card:hover {
+  border-color: var(--border-warm-hover);
+  box-shadow: var(--glow-warm);
+}
+
+/* Warm Buttons */
+.btn-primary {
+  background: var(--accent-gradient);
+  color: #0c0a09;
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 15px rgba(255, 107, 53, 0.25);
+  text-decoration: none;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+  background: var(--accent-gradient-hover);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  font-weight: 600;
+  padding: 10px 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border-warm);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+}
+
+.btn-secondary:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-warm-hover);
+  color: var(--accent-amber);
+}
+
+/* Form Elements */
+.input-warm {
+  width: 100%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-warm);
+  border-radius: 12px;
+  padding: 12px 16px;
+  color: var(--text-primary);
+  font-size: 14px;
+  outline: none;
+  transition: all var(--transition-fast);
+}
+
+.input-warm:focus {
+  border-color: var(--accent-terracotta);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.15);
+}
+
+/* Badge & Indicator Styles */
+.badge-duration {
+  background: rgba(12, 10, 9, 0.85);
+  color: var(--accent-gold);
+  font-size: 12px;
+  font-weight: 600;
+  padding: 3px 8px;
+  border-radius: 6px;
+  backdrop-filter: blur(4px);
+}
