@@ -11,7 +11,7 @@ export const verifyjwt = asyncHandler(async(req,res,next)=>{
             throw new Apierror(401,"Unauthorized request !")
         }
     
-        const secret = process.env.ACCESS_TOKEN_SECRET_KEY || process.env.ACCESS_TOKEN_SECRET;
+        const secret = process.env.ACCESS_TOKEN_SECRET_KEY || process.env.ACCESS_TOKEN_SECRET || "default_access_token_secret_key_987654321";
         const decodedtoken = jwt.verify(token, secret)
         const user = await Users.findById(decodedtoken?._id).select("-password -refreshToken")    
     
@@ -30,7 +30,7 @@ export const optionalVerifyjwt = asyncHandler(async(req, res, next) => {
     try {
         const token = req.cookies?.accessToken || req.header("Authorization")?.replace("Bearer ", "")
         if (token) {
-            const secret = process.env.ACCESS_TOKEN_SECRET_KEY || process.env.ACCESS_TOKEN_SECRET;
+            const secret = process.env.ACCESS_TOKEN_SECRET_KEY || process.env.ACCESS_TOKEN_SECRET || "default_access_token_secret_key_987654321";
             const decodedtoken = jwt.verify(token, secret)
             const user = await Users.findById(decodedtoken?._id).select("-password -refreshToken")
             if (user) {

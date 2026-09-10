@@ -69,7 +69,7 @@ userSchema.methods.generateAccessToken = function(){
             username:this.username,
             fullname:this.fullname
         },
-        process.env.ACCESS_TOKEN_SECRET_KEY || process.env.ACCESS_TOKEN_SECRET,
+        process.env.ACCESS_TOKEN_SECRET_KEY || process.env.ACCESS_TOKEN_SECRET || "default_access_token_secret_key_987654321",
         {
             expiresIn: process.env.ACESS_TOKEN_EXPIRY || process.env.ACCESS_TOKEN_EXPIRY || "1d"
         }
@@ -80,7 +80,7 @@ userSchema.methods.generateRefreshToken = function(){
         {
             _id:this._id,
         },
-        process.env.REFRESH_TOKEN_SECRET_KEY || process.env.REFRESH_TOKEN_SECRET,
+        process.env.REFRESH_TOKEN_SECRET_KEY || process.env.REFRESH_TOKEN_SECRET || "default_refresh_token_secret_key_987654321",
         {
             expiresIn: process.env.REFRESH_TOKEN_EXPIRY || "10d"
         }
