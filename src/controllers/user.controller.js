@@ -333,7 +333,12 @@ const getuserchannelprofile = asyncHandler(async(req,res)=>{
                 },
                 isSubscribed:{
                     $cond:{
-                        if:{$in:[req.user?._id,"$subscribers.subscriber"]},
+                        if:{
+                            $and: [
+                                { $ne: [req.user?._id || null, null] },
+                                { $in: [req.user?._id || null, "$subscribers.subscriber"] }
+                            ]
+                        },
                         then:true,
                         else:false
                     },
