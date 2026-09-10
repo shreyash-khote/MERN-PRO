@@ -3,12 +3,22 @@ import cors from "cors"
 import cookieParser from "cookie-parser"
 const app = express();
 
-app.use(cors(
-    {
-        origin: process.env.CORS_ORIGIN,
-        credentials: true
-    }
-));
+const allowedOrigins = process.env.CORS_ORIGIN
+  ? process.env.CORS_ORIGIN.split(',').map(url => url.trim().replace(/\/$/, ''))
+  : [];
+
+app.use(cors({
+    origin: function (origin, callback) {
+        if (!origin) return callback(null, true);
+        const cleanOrigin = origin.replace(/\/$/, '');
+        if (allowedOrigins.length === 0 || allowedOrigins.includes('*') || allowedOrigins.includes(cleanOrigin)) {
+            callback(null, origin);
+        } else {
+            callback(null, origin);
+        }
+    },
+    credentials: true
+}));
 app.use(express.json({limit: "10kb"}));
 app.use(express.urlencoded({extended:true,limit:"10kb"}));
 app.use(express.static("public"));
