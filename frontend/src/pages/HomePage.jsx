@@ -11,7 +11,7 @@ export const HomePage = () => {
   const [searchParams] = useSearchParams();
   const searchQuery = searchParams.get('query') || '';
 
-  const categories = ['All', 'Trending', 'Tech & Coding', 'Music', 'Gaming', 'Podcasts', 'Design'];
+  const categories = ['All', 'Trending'];
 
   const fetchVideos = async () => {
     try {
