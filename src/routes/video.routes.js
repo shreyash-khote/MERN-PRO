@@ -8,17 +8,15 @@ import {
     deleteVideo,
     togglePublishStatus
 } from "../controllers/video.controller.js";
-import { verifyjwt } from "../middlewares/auth.middelware.js";
+import { verifyjwt, optionalVerifyjwt } from "../middlewares/auth.middelware.js";
 import { upload } from "../middlewares/multer.middelware.js";
 
 const router = Router();
 
-// Apply verifyjwt middleware to all routes in this file
-router.use(verifyjwt);
-
 router.route("/")
-    .get(getAllVideos)
+    .get(optionalVerifyjwt, getAllVideos)
     .post(
+        verifyjwt,
         upload.fields([
             {
                 name: "videoFile",
@@ -33,11 +31,11 @@ router.route("/")
     );
 
 router.route("/:videoId")
-    .get(getVideoById)
-    .delete(deleteVideo)
-    .patch(upload.single("thumbnail"), updateVideo);
+    .get(optionalVerifyjwt, getVideoById)
+    .delete(verifyjwt, deleteVideo)
+    .patch(verifyjwt, upload.single("thumbnail"), updateVideo);
 
 router.route("/views/:videoId").patch(incrementVideoViews);
-router.route("/toggle/publish/:videoId").patch(togglePublishStatus);
+router.route("/toggle/publish/:videoId").patch(verifyjwt, togglePublishStatus);
 
 export default router;
