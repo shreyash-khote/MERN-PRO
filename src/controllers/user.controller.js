@@ -93,8 +93,9 @@ const loginuser = asyncHandler(async(req,res)=>{
     const loggedInUser = await Users.findById(user._id).select("-password -refreshToken")
 
     const options = {
-        httpOnly : true,
-        secure : true
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
     }
 
     return res.status(200)
@@ -122,8 +123,9 @@ const logoutuser = asyncHandler(async(req,res)=>{
     )
 
     const options = {
-        httpOnly : true,
-        secure : true
+        httpOnly: true,
+        secure: true,
+        sameSite: "none"
     }
 
     return res.status(200)
@@ -143,7 +145,7 @@ const refreshAccessToken = asyncHandler(async(req,res)=>{
     try {
         const decodedToken = jwt.verify(
             incomingRefreshToken,
-            process.env.REFRESH_TOKEN_SECRET_KEY
+            process.env.REFRESH_TOKEN_SECRET_KEY || process.env.REFRESH_TOKEN_SECRET || "default_refresh_token_secret_key_987654321"
         )
     
         const user = await Users.findById(decodedToken?._id)
@@ -157,9 +159,10 @@ const refreshAccessToken = asyncHandler(async(req,res)=>{
     
         }
     
-        const options={
-            httpOnly:true,
-            secure:true
+        const options = {
+            httpOnly: true,
+            secure: true,
+            sameSite: "none"
         }
     
        const {accessToken, refreshToken} = await generateAccessandRefreshToken(user._id)
