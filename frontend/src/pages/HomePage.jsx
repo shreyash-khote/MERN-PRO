@@ -17,8 +17,12 @@ export const HomePage = () => {
     try {
       setLoading(true);
       const params = {};
-      if (searchQuery) params.query = searchQuery;
-      if (activeCategory !== 'All' && !searchQuery) params.query = activeCategory;
+      if (searchQuery) {
+        params.query = searchQuery;
+      } else if (activeCategory === 'Trending') {
+        params.sortBy = 'views';
+        params.sortType = 'desc';
+      }
 
       const res = await getAllVideosApi(params);
       if (res.data?.docs) {
