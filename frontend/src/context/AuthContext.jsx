@@ -30,7 +30,12 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (credentials) => {
     const res = await loginUserApi(credentials);
-    setUser(res.data.user);
+    const token = res.data?.accessToken || res.accessToken;
+    if (token) {
+      localStorage.setItem('accessToken', token);
+    }
+    const userData = res.data?.user || res.data;
+    setUser(userData);
     setAuthModalOpen(false);
     return res;
   };
@@ -42,8 +47,14 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = async () => {
-    await logoutUserApi();
-    setUser(null);
+    try {
+      await logoutUserApi();
+    } catch (err) {
+      console.error(err);
+    } finally {
+      localStorage.removeItem('accessToken');
+      setUser(null);
+    }
   };
 
   const openAuthModal = (tab = 'login') => {
